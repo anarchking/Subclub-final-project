@@ -1,4 +1,4 @@
-# YOUR PROJECT TITLE
+# SubClub Web Application
 #### Video Demo:  <URL HERE>
 #### Description:
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
@@ -14,13 +14,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- PROJECT LOGO -->
@@ -102,39 +95,125 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
+
+
+* Start by Updating local package index on Server
+  ```sh
+  sudo apt-get update
+  ```
+* Next Upgrade software on Server
+  ```sh
+  sudo apt-get upgrade
+  ```
+* Next Add a user to Server "NOT a good idea to run on root"
+  ```sh
+  sudo adduser "New user name"
+  ```
+* Give user a password and confirm it
+* Give user sudo privileges
+  ```sh
+  usermod -aG sudo "New user name"
+  ```
+* Navigate to ssh config file
+  ```sh
+  vim /etc/ssh/sshd_config
+  ```
+* Remove "#" to uncomment this line in config file to allow user to ssh into server.
+  ```sh
+  From "#PasswordAuthentication" to PasswordAuthentication
+  ```
+* Restart with changes
+  ```sh
+  systemctl restart sshd
+  ```
+* Set up python virtual enviroment
+  ```sh
+  python3 -m venv ~/env/server
+  ```
+* Activate python virtual enviroment
+  ```sh
+  source ~/env/server/bin/activate
+  ```
+* Follow all steps in <a href="#prerequisites">Prerequisites</a>
+* Navigate to your webapps folder
+* Make a wsgi "Web Server Gateway Interface" file
+  ```sh
+  vim wsgi.py
+  ```
+* Add this to wsgi.py
+  ```sh
+
+  from app import app
+
+  if __name__ == "__main__":
+      app.run()
+  ```
+* Make sure gunicorn is running
+  ```sh
+  gunicorn --bind 0.0.0.0:5000 wsgi:app
+  ```
+* Check ip:port number to make sure it come up
+* Deactivate Virtual Enviroment
+  ```sh
+  deactivate
+  ```
+* Create a file to start app enviroment on boot
+  ```sh
+  sudo vim /etc/systemd/system/server.service
+  ```
+* In server.service file type the following below then save
+  ```sh
+  [Unit]
+  Description=Gunicorn instance to serve Subclub Flask app
+  After=network.target
+
+  [Service]
+  User="username"
+  Group=www-data
+  WorkingDirectory=/home/"username"/server
+  Environment="PATH=/home/'username'/env/server/bin"
+  ExecStart=/home/'username'/env/server/bin/gunicorn --workers 3 --bind unix:app.sock -m
+  007 wsgi:app
+
+  [Install]
+  WantedBy=multi-user.target
+  ```
+* Reload daemons
+  ```sh
+  sudo systemctl daemon-reload
+  ```
+* Start the daemon
+  ```sh
+  sudo systemctl start server
+  ```
+* Finally enable the daemon
+  ```sh
+  sudo systemctl enable server
+  ```
+* Check status to make sure its up and running
+  ```sh
+  sudo systemctl status server
+  ```
+* Make sure it says active and running
+
 
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
+* Flask
   ```sh
-  npm install npm@latest -g
+  pip install flask
   ```
-
-### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
+* Flask Session
+  ```sh
+  pip install flask_session
+  ```
+* Gunicorn
+  ```sh
+  pip install gunicorn
+  ```
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -167,8 +246,7 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
+Stephen Littman - [My Facebook](https://www.facebook.com/stephen.littman.9)
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -182,34 +260,14 @@ Use this space to list resources you find helpful and would like to give credit 
 
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
 * [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+* [GitHub](https://github.com)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
 [product-screenshot]: images/screenshot.png
-
 
 [Flask.com]: https://flask.palletsprojects.com/en/3.0.x/_images/flask-horizontal.png
 [Flask-url]: https://flask.palletsprojects.com/
