@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+
+    <form action="/login" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text" required minlength="8" maxlength="16">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password" required minlength="8" maxlength="32">
+            show <input type="checkbox" id="checkpass" onclick="visibility('password')">
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>
+
+{% endblock %}

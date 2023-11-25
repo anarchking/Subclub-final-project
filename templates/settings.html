@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block main %}
+
+    <div>
+        <h1>Settings</h1>
+        <br>
+        <h4>Change Password</h4>
+        <form class="setting_form_pad" action="/settings" method="post">
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="current_password" name="current_password" placeholder="Current Password" required type="password" minlength="8" maxlength="32">
+                show <input type="checkbox" id="checkpass" onclick="visibility('current_password')">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="new_password" name="new_password" placeholder="New Password" required type="password" minlength="8" maxlength="32">
+                show <input type="checkbox" id="checkconfirm" onclick="visibility('new_password')">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Re-type Password" required type="password" minlength="8" maxlength="32">
+                show <input type="checkbox" id="checkconfirm" onclick="visibility('confirmation')">
+            </div>
+            <button class="btn btn-primary" type="submit">Change</button>
+        </form>
+        <br>
+        {% if new_path %}
+            <h5>Uploaded</h5>
+            <img src="{{ url_for('static', filename=new_path) }}" alt="new_path" width="200" height="200">
+            <br>
+        {% endif %}
+        <br>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <div>
+                <h4>Upload a Profile Picture</h4>
+                <input style="display: none;" type="file" id="profile_pic" name="profile_pic" accept="image/*">
+                <label class="text_to_button" for="profile_pic">Select Photo</label>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="submit" value="Upload">Submit Photo</button>
+        </form>
+        <br>
+        <form class="setting_form_pad" action="/deregister" method="post">
+            <h4>DELETE Profile</h4>
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" required type="text" minlength="8" maxlength="32">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" required type="password" minlength="8" maxlength="32">
+                show <input type="checkbox" id="checkconfirm" onclick="visibility('password')">
+            </div>
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" id="confirmation2" name="confirmation2" placeholder="Re-type Password" required type="password" minlength="8" maxlength="32">
+                show <input type="checkbox" id="checkconfirm" onclick="visibility('confirmation2')">
+            </div>
+            <button class="btn btn-primary" type="submit">Deregister</button>
+        </form>
+    </div>
+{% endblock %}

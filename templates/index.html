@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block main %}
+    <!-- Mobile view only -->
+    <div class="carousel_mobile">
+        <h1>Join Us</h1>
+        <h3>Subclub is a group of great people who love to kayak. Come join us on Facebook</h3>
+        <a href="https://m.facebook.com/groups/336448678383498/?ref=share&mibextid=NSMWBT" class="btn btn-primary">Facebook Group</a>
+        <br>
+        <br>
+    </div>
+
+    <!-- Carousel -->
+    <div class="container div_size">
+        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+            <!-- Indicators/dots -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+            </div>
+            <!-- The slideshow/carousel -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="static/images/index_pics/subclub0.jpg" alt="Subclub0" class="d-block w-100 carousel_img">
+                    <div class="carousel-caption d-none d-md-block animate-charcter">
+                        <h1>Live A Great Story</h1>
+                        <h3>Subclub on top of the Pine River Dune in Michigan</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="static/images/index_pics/subclub1.jpg" alt="Subclub1" class="d-block w-100 carousel_img">
+                    <div class="carousel-caption d-none d-md-block animate-charcter carousel_text_top">
+                        <h1>Blessing Of The Kayaks</h1>
+                        <h3>First time throwing our Blessing of the Kayaks</h3>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="static/images/index_pics/subclub2.jpg" alt="Subclub2" class="d-block w-100 carousel_img">
+                    <div class="carousel-caption d-none d-md-block carousel_text_top">
+                        <div class="animate-charcter">
+                            <h1>Join Us</h1>
+                            <h3>Subclub is a group of great people who love to kayak. Come join us on Facebook</h3>
+                        </div>
+                        <a href="https://m.facebook.com/groups/336448678383498/?ref=share&mibextid=NSMWBT" class="btn btn-primary">Facebook Group</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Left and right controls/icons -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </div>
+
+{% endblock %}
